@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Central - Pandilla Arácnida</title>
+    <style>
+        /* Diseño base oscuro */
+        body {
+            background-color: #090a0f;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        /* Cabecera */
+        header {
+            background: linear-gradient(180deg, #111827 0%, #090a0f 100%);
+            padding: 40px 20px 20px 20px;
+            border-bottom: 1px solid #1f2937;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 3px;
+            color: #00ff66;
+            text-shadow: 0 0 15px rgba(0, 255, 102, 0.3);
+        }
+
+        p.subtitulo {
+            color: #9ca3af;
+            margin-top: 8px;
+            font-size: 1em;
+        }
+
+        /* Barra de búsqueda */
+        .search-box {
+            margin: 25px auto;
+            max-width: 500px;
+            padding: 0 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 2px solid #1f2937;
+            background-color: #111827;
+            color: #ffffff;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus {
+            border-color: #00ff66;
+        }
+
+        /* Cuadrícula de tarjetas */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            max-width: 1100px;
+            margin: 20px auto 60px auto;
+            padding: 0 25px;
+        }
+
+        .card {
+            background-color: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            overflow: hidden;
+            text-decoration: none;
+            color: #ffffff;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: #00ff66;
+            box-shadow: 0 10px 20px rgba(0, 255, 102, 0.15);
+        }
+
+        .card-banner {
+            height: 130px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .card-info {
+            padding: 15px;
+            background-color: #161e2e;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-title {
+            font-size: 1.15em;
+            font-weight: bold;
+            margin: 0 0 5px 0;
+        }
+
+        .card-tag {
+            font-size: 0.8em;
+            color: #00ff66;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>PANDILLA ARÁCNIDA</h1>
+        <p class="subtitulo">Directorio Central de Juegos y Multimedia</p>
+        
+        <div class="search-box">
+            <input type="text" id="buscador" onkeyup="filtrarTarjetas()" placeholder="Buscar juego o plataforma...">
+        </div>
+    </header>
+
+    <main class="grid-container" id="lista-tarjetas">
+        
+        <!-- Tarjeta 1: YouTube -->
+        <a href="https://youtube.com" target="_blank" class="card">
+            <div class="card-banner" style="background: linear-gradient(135deg, #990000, #ff0000);">
+                ▶
+            </div>
+            <div class="card-info">
+                <div class="card-title">YouTube</div>
+                <div class="card-tag">Vídeos y Música</div>
+            </div>
+        </a>
+
+        <!-- Tarjeta 2: Fortzone Battle Royale -->
+        <a href="https://poki.com" target="_blank" class="card">
+            <div class="card-banner" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6);">
+                🎯
+            </div>
+            <div class="card-info">
+                <div class="card-title">Fortzone Battle Royale</div>
+                <div class="card-tag">Acción / Shooter</div>
+            </div>
+        </a>
+
+        <!-- Tarjeta 3: Rocket Soccer Derby -->
+        <a href="https://poki.com" target="_blank" class="card">
+            <div class="card-banner" style="background: linear-gradient(135deg, #065f46, #10b981);">
+                ⚽
+            </div>
+            <div class="card-info">
+                <div class="card-title">Rocket Soccer Derby</div>
+                <div class="card-tag">Coches / Deportes</div>
+            </div>
+        </a>
+
+        <!-- Tarjeta 4: Minecraft Classic (Oficial) -->
+        <a href="https://minecraft.net" target="_blank" class="card">
+            <div class="card-banner" style="background: linear-gradient(135deg, #3f6212, #65a30d);">
+                ⛏️
+            </div>
+            <div class="card-info">
+                <div class="card-title">Minecraft Classic</div>
+                <div class="card-tag">Construcción</div>
+            </div>
+        </a>
+
+    </main>
+
+    <script>
+        function filtrarTarjetas() {
+            const texto = document.getElementById('buscador').value.toLowerCase();
+            const tarjetas = document.getElementsByClassName('card');
+
+            for (let i = 0; i < tarjetas.length; i++) {
+                const titulo = tarjetas[i].querySelector('.card-title').innerText.toLowerCase();
+                const etiqueta = tarjetas[i].querySelector('.card-tag').innerText.toLowerCase();
+                
+                if (titulo.includes(texto) || etiqueta.includes(texto)) {
+                    tarjetas[i].style.display = 'flex';
+                } else {
+                    tarjetas[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
